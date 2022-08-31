@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-export const Popup = () => {
+export const WelcomePopup = () => {
     const [open, setOpen] = useState(false)
 
     return (
