@@ -1,7 +1,21 @@
 import React, {useState} from "react";
+import {useDispatch} from "react-redux";
+
+import {setUserName} from "./reducer";
 
 export const WelcomePopup = () => {
+    const dispatch = useDispatch()
     const [open, setOpen] = useState(false)
+    const [name, setName] = useState('')
+
+    const onChangeUserName = (name:any) => {
+        dispatch(setUserName(name))
+        if (!name) {
+            setOpen(open);
+        } else {
+            setOpen(!open);
+        }
+    }
 
     return (
         <>
@@ -23,11 +37,23 @@ export const WelcomePopup = () => {
                             </button>
                         </div>
                         <div className="modal-body">
-                            <input placeholder="Как тебя зовут?"/>
+                            <textarea
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                style={{
+                                    borderRadius: 8,
+                                    height: 30,
+                                    border: "1px solid rgba(0, 0, 0, 0.175)",
+                                }}
+                                placeholder=" Как тебя зовут?"
+                                required
+                            />
                         </div>
                         <div className="modal-footer">
                             <button type="button"
-                                    onClick={() => setOpen(!open)}
+                                    onClick={() => {
+                                        onChangeUserName(name)
+                                    }}
                                     className="btn btn-primary">Сохранить
                             </button>
                         </div>
