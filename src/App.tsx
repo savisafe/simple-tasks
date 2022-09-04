@@ -4,7 +4,6 @@ import './App.css';
 import {WelcomePopup} from "./components/WelcomePopup/WelcomePopup";
 import {Board} from "./components/Board";
 
-
 function App() {
     return (
         <>
