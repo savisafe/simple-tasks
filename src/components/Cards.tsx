@@ -89,8 +89,8 @@ export const Cards = () => {
                 </div>
             </div>
 
-            {(card || []).map((e: any) => (
-                <div className={save ? '' : 'display-none'}>
+            {(card || []).map( (e:any, i:any) => (
+                <div key={i} className={save ? '' : 'display-none'}>
                     <div
                         style={{
                             padding: 20,
