@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
 
-import {setUserName} from "../reducer";
+import {setUserName} from "./reducer";
 
 export const WelcomePopup = () => {
     const dispatch = useDispatch()

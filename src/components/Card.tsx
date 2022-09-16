@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {CommentIcon} from "./icons/CommentIcon";
 import {useSelector} from "react-redux";
+import {CardPopup} from "./CardPopup";
 
 type Props = {
     userName: string;
@@ -52,6 +53,8 @@ export const Card = ({userName, title, text}: Props) => {
                     </div>
                 </div>
             </div>
+
+            <CardPopup/>
         </>
     )
 }
