@@ -1,13 +1,12 @@
 import React from "react";
 
 import {Column} from "./Column";
-import {CreateCard} from "./CreateCard";
-import {Card} from "./Card";
-import {useSelector} from "react-redux";
+import {CardsToDo} from "./Cards/CardsToDo";
+import {CardsInProgress} from "./Cards/CardsInProgress";
+import {CardsTesting} from "./Cards/CardsTesting";
+import {CardsDone} from "./Cards/CardsDone";
 
 export const Board = () => {
-    const cardsToDo = useSelector( (state:any) => state.userName.cardsToDo)
-    const userName = useSelector((state: any) => state.userName.userName)
 
     return (
         <>
@@ -16,30 +15,19 @@ export const Board = () => {
                 <div className="row">
                     <div className="col">
                         <Column name={`To do`}/>
-                        <CreateCard/>
-                        {
-                            cardsToDo.map( (e:any,i:any) => (
-                                <Card
-                                    key={i}
-                                    userName={userName}
-                                    title={e.title}
-                                    text={e.text}
-                                />
-                            ))
-                        }
-
+                        <CardsToDo/>
                     </div>
                     <div className="col">
                         <Column name={`In progress`}/>
-
+                        <CardsInProgress/>
                     </div>
                     <div className="col">
                         <Column name={`Testing`}/>
-
+                        <CardsTesting/>
                     </div>
                     <div className="col">
                         <Column name={`Done`}/>
-
+                        <CardsDone/>
                     </div>
                 </div>
             </div>

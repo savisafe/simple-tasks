@@ -8,6 +8,13 @@ export const WelcomePopup = () => {
     const [open, setOpen] = useState(false)
     const [name, setName] = useState('')
 
+    const handleKeyDown = (e:any) => {
+        if (e.key === 'Enter') {
+            dispatch(setUserName(name))
+            setOpen(!open)
+        }
+    }
+
     const onChangeUserName = (name:any) => {
         dispatch(setUserName(name))
     }
@@ -35,10 +42,12 @@ export const WelcomePopup = () => {
                             <textarea
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
+                                onKeyDown={handleKeyDown}
                                 style={{
                                     borderRadius: 8,
                                     height: 30,
                                     border: "1px solid rgba(0, 0, 0, 0.175)",
+                                    whiteSpace: "nowrap",
                                 }}
                                 placeholder=" Как тебя зовут?"
                             />

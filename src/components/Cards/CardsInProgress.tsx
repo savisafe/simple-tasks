@@ -1,23 +1,26 @@
 import React, {useState} from "react";
 
-import {useDispatch} from "react-redux";
-import {setCardsToDo} from "./reducer";
+import {useDispatch, useSelector} from "react-redux";
+import {setCardsInProgress} from "../reducer";
+import {Card} from "../Card";
 
 
-export const CreateCard = () => {
+export const CardsInProgress = () => {
     const dispatch = useDispatch()
     const [open, setOpen] = useState(false)
     const [save, setSave] = useState(false)
     const [newTitle, setNewTitle] = useState('')
     const [newText, setNewText] = useState('')
+    const userName = useSelector((state: any) => state.userName.userName)
+    const cardsInProgress = useSelector( (state:any) => state.userName.cardsInProgress)
 
-    const onChangeTitleCard = (title:any, text:any) => {
+    const onChangeCard = (title:any, text:any) => {
         const cards = {
             title,
             text,
             id: Date.now(),
         }
-        dispatch(setCardsToDo(cards))
+        dispatch(setCardsInProgress(cards))
     }
 
     return (
@@ -62,7 +65,7 @@ export const CreateCard = () => {
                     <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                         <button type="button"
                                 onClick={() => {
-                                    onChangeTitleCard(newTitle, newText)
+                                    onChangeCard(newTitle, newText)
                                     setOpen(!open);
                                     setSave(!save);
                                     setNewTitle('')
@@ -74,6 +77,17 @@ export const CreateCard = () => {
                     </div>
                 </div>
             </div>
+
+            {
+                cardsInProgress.map( (e:any,i:any) => (
+                    <Card
+                        key={i}
+                        userName={userName}
+                        title={e.title}
+                        text={e.text}
+                    />
+                ))
+            }
 
             <button
                 onClick={() => {

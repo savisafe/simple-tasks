@@ -7,6 +7,12 @@ export const Column = ({name}: Props) => {
     const [nameCol, setNameCol] = useState(name)
     const [open, setOpen] = useState(false)
 
+    const handleKeyDown = (e: any) => {
+        if (e.key === 'Enter') {
+            setOpen(!open)
+        }
+    }
+
     return (
         <div style={{
             padding: 20,
@@ -26,16 +32,17 @@ export const Column = ({name}: Props) => {
                 display: "flex",
                 justifyContent: "space-around",
             }}>
-                                <textarea
-                                    style={{
-                                        height: 30,
-                                        width: 150,
-                                    }}
-                                    className={open ? '' : 'display-none'}
-                                    name="name"
-                                    value={nameCol}
-                                    onChange={(e) => setNameCol(e.target.value)}
-                                />
+                <textarea
+                    style={{
+                        height: 30,
+                        width: 150,
+                    }}
+                    className={open ? '' : 'display-none'}
+                    name="name"
+                    value={nameCol}
+                    onChange={(e) => setNameCol(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                />
                 <button
                     onClick={() => setOpen(!open)}
                     className={open ? '' : 'display-none'}
