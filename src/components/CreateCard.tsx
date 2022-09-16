@@ -1,37 +1,24 @@
 import React, {useState} from "react";
 
-import {CommentIcon} from "./icons/CommentIcon";
-import {useDispatch, useSelector} from "react-redux";
-import {
-    setTitle,
-    setText,
-    resetCard,
-} from "./reducer";
+import {useDispatch} from "react-redux";
+import {setCardsToDo} from "./reducer";
 
 
-export const Cards = () => {
+export const CreateCard = () => {
     const dispatch = useDispatch()
     const [open, setOpen] = useState(false)
     const [save, setSave] = useState(false)
     const [newTitle, setNewTitle] = useState('')
     const [newText, setNewText] = useState('')
-    const userName = useSelector((state: any) => state.userName.userName)
-    const title = useSelector((state: any) => state.userName.card.title)
-    const text = useSelector((state: any) => state.userName.card.text)
-    const card = [useSelector((state: any) => state.userName.card)]
 
-    const onChangeTitleCard = (newTitle: any) => {
-        dispatch(setTitle(newTitle))
+    const onChangeTitleCard = (title:any, text:any) => {
+        const cards = {
+            title,
+            text,
+            id: Date.now(),
+        }
+        dispatch(setCardsToDo(cards))
     }
-    const onChangeTextCard = (newText: any) => {
-        dispatch(setText(newText))
-    }
-    const clearCard = (title:any, text:any) => {
-        dispatch(resetCard(title))
-        dispatch(resetCard(text))
-    }
-
-    console.log(card)
 
     return (
         <>
@@ -75,12 +62,11 @@ export const Cards = () => {
                     <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                         <button type="button"
                                 onClick={() => {
-                                    resetCard(newTitle)
-                                    resetCard(newText)
-                                    onChangeTitleCard(newTitle)
-                                    onChangeTextCard(newText)
+                                    onChangeTitleCard(newTitle, newText)
                                     setOpen(!open);
                                     setSave(!save);
+                                    setNewTitle('')
+                                    setNewText('')
                                 }}
                                 disabled={newTitle === ''}
                                 className="btn btn-primary">Сохранить
@@ -88,48 +74,6 @@ export const Cards = () => {
                     </div>
                 </div>
             </div>
-
-            {(card || []).map( (e:any, i:any) => (
-                <div key={i} className={save ? '' : 'display-none'}>
-                    <div
-                        style={{
-                            padding: 20,
-                            margin: 5,
-                            border: "1px solid rgba(0, 0, 0, 0.175)",
-                            borderRadius: 8
-                        }}>
-                        <div
-                            style={{
-                                fontWeight: 700,
-                                wordWrap: "break-word",
-                            }}
-                        >{e.title || ''}</div>
-                        <div
-                            style={{
-                                textAlign: 'left',
-                                wordWrap: "break-word",
-                            }}
-                        >{e.text || ''}</div>
-                        <div
-                            style={{
-                                width: '100%'
-                            }}
-                        >
-                            <div style={{
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                color: 'rgba(0, 0, 0, 0.175)',
-                                fontSize: 12,
-                            }}>
-                                {userName || 'Пользователь'}
-                                <div>
-                                    <CommentIcon/> {0}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            ))}
 
             <button
                 onClick={() => {

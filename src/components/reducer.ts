@@ -4,32 +4,20 @@ const userName = createSlice({
     name: 'userName',
     initialState: {
         userName: 'Пользователь',
-        card: {
-            title: '',
-            text: '',
-        },
+        cardsToDo: [],
     },
     reducers: {
         setUserName: (state, action) => {
             state.userName = action.payload
         },
-        setTitle: (state, action) => {
-            state.card.title = action.payload
+        setCardsToDo: (state:any, action) => {
+            return {...state, cardsToDo: [...state.cardsToDo, action.payload]}
         },
-        setText: (state, action) => {
-            state.card.text = action.payload
-        },
-        resetCard: (state, action) => {
-            state.card.title = ''
-            state.card.text = ''
-        }
     }
 })
 
 export const {
     setUserName,
-    setTitle,
-    setText,
-    resetCard,
+    setCardsToDo,
 } = userName.actions
 export default userName.reducer
