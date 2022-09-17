@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import {CommentIcon} from "./icons/CommentIcon";
-import {useSelector} from "react-redux";
 import {CardPopup} from "./CardPopup";
 
 type Props = {
@@ -11,12 +10,14 @@ type Props = {
 
 export const Card = ({userName, title, text}: Props) => {
     const [save, setSave] = useState(false)
+    const [open, setOpen] = useState(false)
 
     return (
         <>
-            <div>
+            <div onClick={() => setOpen(!open)}>
                 <div
                     style={{
+                        cursor: "pointer",
                         padding: 20,
                         margin: 5,
                         border: "1px solid rgba(0, 0, 0, 0.175)",
@@ -54,7 +55,17 @@ export const Card = ({userName, title, text}: Props) => {
                 </div>
             </div>
 
-            <CardPopup/>
+            {open ? (
+                <CardPopup
+                    title={title}
+                    text={text}
+                    userName={userName}
+                />
+            ) : (
+                <></>
+            )}
+
+
         </>
     )
 }

@@ -1,8 +1,19 @@
 import React, {useState} from "react";
 import {UserIcon} from "./icons/UserIcon";
+import {setCardsToDo} from "./reducer";
+import {useDispatch} from "react-redux";
 
-export const CardPopup = () => {
+type Props = {
+    userName: string;
+    title: string;
+    text: string;
+}
+
+export const CardPopup = ({userName, title, text}: Props) => {
+    const dispatch = useDispatch()
     const [open, setOpen] = useState(false)
+    const [change, setChange] = useState(false)
+    const [newTitle, setNewTitle] = useState(title)
 
     return (
         <>
@@ -15,7 +26,28 @@ export const CardPopup = () => {
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title">Карточка</h5>
+                            <h5 className="modal-title">
+                                {change ? (
+                                    <textarea
+                                        value={newTitle}
+                                        onChange={(e) => setNewTitle(e.target.value)}
+                                        style={{
+                                            margin: 4,
+                                            fontWeight: 700,
+                                            height: 30,
+                                            width: '100%',
+                                            borderRadius: 8,
+                                            border: "1px solid rgba(0, 0, 0, 0.175)",
+                                        }}
+                                        placeholder="Название вашей карточки"
+                                    />
+                                ) : (
+                                    <div
+                                        onClick={() => setChange(!change)}>
+                                        {title}
+                                    </div>
+                                )}
+                            </h5>
                             <button type="button"
                                     onClick={() => setOpen(!open)}
                                     className="btn-close"
@@ -27,19 +59,27 @@ export const CardPopup = () => {
                             <div style={{
                                 textAlign: 'left'
                             }}>
-                                Текст карточкиТекст карточкиТекст карточкиТекст карточкиТекст карточкиТекст
-                                карточкиТекст карточкиТекст карточкиТекст карточкиТекст карточкиТекст карточкиТекст
-                                карточкиТекст карточкиТекст карточкиТекст карточкиТекст карточкиТекст карточкиТекст
-                                карточкиТекст карточкиТекст карточкиТекст карточкиТекст карточкиТекст карточкиТекст
-                                карточки
+                                {text}
                             </div>
                         </div>
-                        <div className="modal-body">
+                        <div
+                            className="modal-body">
+
+                            <div
+                                style={{
+                                    color: 'rgba(0, 0, 0, 0.175)',
+                                    fontSize: 12,
+                                    textAlign: "left",
+                                }}>
+                                Автор: {userName}
+                            </div>
+
                             <div>
                                 0 комментариев
                             </div>
 
                             <div style={{
+                                marginTop: 15,
                                 display: "flex",
                                 alignItems: "center",
                             }}
@@ -93,42 +133,41 @@ export const CardPopup = () => {
                                     </div>
                                 </div>
                                 <div
-                                style={{
-                                    textAlign: "left"
-                                }}>Комментарий пользователя</div>
+                                    style={{
+                                        textAlign: "left"
+                                    }}>Комментарий пользователя
+                                </div>
                             </div>
                         </div>
 
                         <div className="modal-footer">
-                            <button type="button"
-                                    onClick={() => {
-                                        // onChangeUserName(name)
-                                        setOpen(!open)
-                                    }}
-                                    className="btn btn-primary"
-                                // disabled={name === ''}
-                            >Сохранить
-                            </button>
+                            {change ? (
+                                <button type="button"
+                                        onClick={() => {
+                                            setChange(!change)
+                                        }}
+                                        className="btn btn-primary"
+                                >Сохранить
+                                </button>
+                            ) : (
+                                <>
+                                    <button type="button"
+                                            onClick={() => {
+                                                setChange(!change)
+                                            }}
+                                            className="btn btn-link"
+                                    >Изменить карточку
+                                    </button>
 
-                            <button type="button"
-                                    onClick={() => {
-                                        // onChangeUserName(name)
-                                        setOpen(!open)
-                                    }}
-                                    className="btn btn-link"
-                                // disabled={name === ''}
-                            >Изменить карточку
-                            </button>
+                                    <button type="button"
+                                            onClick={() => {
 
-                            <button type="button"
-                                    onClick={() => {
-                                        // onChangeUserName(name)
-                                        setOpen(!open)
-                                    }}
-                                    className="btn btn-danger"
-                                // disabled={name === ''}
-                            >Удалить карточку
-                            </button>
+                                            }}
+                                            className="btn btn-danger"
+                                    >Удалить карточку
+                                    </button>
+                                </>
+                            )}
                         </div>
                     </div>
                 </div>

@@ -23,6 +23,8 @@ export const CardsToDo = () => {
         dispatch(setCardsToDo(cards))
     }
 
+    console.log(cardsToDo)
+
     return (
         <>
             <div
