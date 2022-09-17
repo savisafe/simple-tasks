@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {UserIcon} from "./icons/UserIcon";
 import {setCardsToDo} from "./reducer";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 type Props = {
     userName: string;
@@ -14,6 +14,9 @@ export const CardPopup = ({userName, title, text}: Props) => {
     const [open, setOpen] = useState(false)
     const [change, setChange] = useState(false)
     const [newTitle, setNewTitle] = useState(title)
+    const cardsToDo = useSelector( (state:any) => state.userName.cardsToDo)
+
+    console.log(cardsToDo)
 
     return (
         <>
