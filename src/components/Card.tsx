@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {CommentIcon} from "./icons/CommentIcon";
 import {UserIcon} from "./icons/UserIcon";
 import {useDispatch, useSelector} from "react-redux";
-import {removeCardTodo} from "./reducer";
+import {removeCardToDo} from "./reducer";
 
 type Props = {
     userName: string;
@@ -229,7 +229,7 @@ export const Card = ({userName, title, text, id}: Props) => {
 
                                     <button type="button"
                                             onClick={() => {
-                                                dispatch(removeCardTodo(Number(id)));
+                                                dispatch(removeCardToDo(Number(id)));
                                                 setOpen(!open);
                                             }}
                                             className="btn btn-danger"
