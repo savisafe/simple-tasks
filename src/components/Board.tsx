@@ -1,10 +1,10 @@
 import React from "react";
 
-import {Column} from "./Column";
-import {CardsToDo} from "./Cards/CardsToDo";
-import {CardsInProgress} from "./Cards/CardsInProgress";
-import {CardsTesting} from "./Cards/CardsTesting";
-import {CardsDone} from "./Cards/CardsDone";
+import {ColumnOne} from "./columns/ColumnOne";
+import {CreateCardsForColOne} from "./create_cards/CreateCardsForColOne";
+import {CreateCardsForColTwo} from "./create_cards/CreateCardsForColTwo";
+import {CreateCardsForColThree} from "./create_cards/CreateCardsForColThree";
+import {CreateCardsForColFour} from "./create_cards/CreateCardsForColFour";
 
 export const Board = () => {
 
@@ -14,20 +14,16 @@ export const Board = () => {
                  style={{marginTop: "2%"}}>
                 <div className="row">
                     <div className="col">
-                        <Column name={`To do`}/>
-                        <CardsToDo/>
+                        <ColumnOne name={`To do`}/>
                     </div>
                     <div className="col">
-                        <Column name={`In progress`}/>
-                        <CardsInProgress/>
+
                     </div>
                     <div className="col">
-                        <Column name={`Testing`}/>
-                        <CardsTesting/>
+
                     </div>
                     <div className="col">
-                        <Column name={`Done`}/>
-                        <CardsDone/>
+
                     </div>
                 </div>
             </div>

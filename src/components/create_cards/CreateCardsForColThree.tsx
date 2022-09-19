@@ -1,17 +1,18 @@
 import React, {useState} from "react";
 
 import {useDispatch, useSelector} from "react-redux";
-import {setCardsToDo} from "../reducer";
-import {Card} from "../Card";
+import {setCardsColThree} from "../reducer";
+import {CardForColOne} from "../cards/CardForColOne";
 
-export const CardsToDo = () => {
+
+export const CreateCardsForColThree = () => {
     const dispatch = useDispatch()
     const [open, setOpen] = useState(false)
     const [save, setSave] = useState(false)
     const [newTitle, setNewTitle] = useState('')
     const [newText, setNewText] = useState('')
     const userName = useSelector((state: any) => state.userName.userName)
-    const cardsToDo = useSelector( (state:any) => state.userName.cardsToDo)
+    const cardsColThree = useSelector( (state:any) => state.userName.cardsColThree)
 
     const onChangeCard = (title:any, text:any) => {
         const cards = {
@@ -19,7 +20,7 @@ export const CardsToDo = () => {
             text,
             id: Date.now(),
         }
-        dispatch(setCardsToDo(cards))
+        dispatch(setCardsColThree(cards))
     }
 
     return (
@@ -78,15 +79,9 @@ export const CardsToDo = () => {
             </div>
 
             {
-                cardsToDo.map( (e:any,i:any) => (
-                    <Card
-                        key={i}
-                        userName={userName}
-                        title={e.title}
-                        text={e.text}
-                        id={e.id}
-                    />
-                ))
+                // cardsColThree.map( (e:any,i:any) => (
+                //
+                // ))
             }
 
             <button

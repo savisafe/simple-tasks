@@ -1,26 +1,28 @@
 import React, {useState} from "react";
 
 import {useDispatch, useSelector} from "react-redux";
-import {setCardsTesting} from "../reducer";
-import {Card} from "../Card";
+import {setCardsColOne} from "../reducer";
+import {CardForColOne} from "../cards/CardForColOne";
 
-
-export const CardsTesting = () => {
+type Props = {
+    name: string;
+}
+export const CreateCardsForColOne = ({name}: Props) => {
     const dispatch = useDispatch()
     const [open, setOpen] = useState(false)
     const [save, setSave] = useState(false)
     const [newTitle, setNewTitle] = useState('')
     const [newText, setNewText] = useState('')
     const userName = useSelector((state: any) => state.userName.userName)
-    const cardsTesting = useSelector( (state:any) => state.userName.cardsTesting)
+    const cards = useSelector((state: any) => state.userName.cardsColOne)
 
-    const onChangeCard = (title:any, text:any) => {
+    const onChangeCard = (title: any, text: any) => {
         const cards = {
             title,
             text,
             id: Date.now(),
         }
-        dispatch(setCardsTesting(cards))
+        dispatch(setCardsColOne(cards))
     }
 
     return (
@@ -79,13 +81,14 @@ export const CardsTesting = () => {
             </div>
 
             {
-                cardsTesting.map( (e:any,i:any) => (
-                    <Card
+                cards.map((e: any, i: any) => (
+                    <CardForColOne
                         key={i}
                         userName={userName}
                         title={e.title}
                         text={e.text}
                         id={e.id}
+                        col={name}
                     />
                 ))
             }

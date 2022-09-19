@@ -4,45 +4,52 @@ const userName = createSlice({
     name: 'userName',
     initialState: {
         userName: 'Пользователь',
-        cardsToDo: [],
-        cardsInProgress: [],
-        cardsTesting: [],
-        cardsDone: [],
+        cardsColOne: [],
+        cardsColTwo: [],
+        cardsColThree: [],
+        cardsColFour: [],
     },
     reducers: {
         setUserName: (state, action) => {
             console.log('name', action)
             state.userName = action.payload
         },
-        setCardsToDo: (state:any, action) => {
+        setCardsColOne: (state: any, action) => {
             console.log('cards', action)
-            return {...state, cardsToDo: [...state.cardsToDo, action.payload]}
+            return {...state, cardsColOne: [...state.cardsColOne, action.payload]}
         },
-        removeCardToDo: (state:any, action) => {
+        removeCardColOne: (state: any, action) => {
             console.log('remove', action)
-            state.cardsToDo = state.cardsToDo.filter( (e:any) => e.id !== action.payload)
+            state.cardsColOne = state.cardsColOne.filter((e: any) => e.id !== action.payload)
         },
-        changeCardToDo: (state, action) => {
+        changeCardColOne: (state: any, action) => {
             console.log('change', action)
+            let i = state.cardsColOne.findIndex( (e:any) => e.id === action.payload.id)
+            state.cardsColOne[i] = {
+                ...state.cardsColOne[i],
+                title: state.cardsColOne[i].title = action.payload.title,
+                text: state.cardsColOne[i].text = action.payload.text,
+            }
         },
-        setCardsInProgress: (state:any, action) => {
-            return {...state, cardsInProgress: [...state.cardsInProgress, action.payload]}
+        setCardsColTwo: (state: any, action) => {
+            return {...state, cardsColTwo: [...state.cardsColTwo, action.payload]}
         },
-        setCardsTesting: (state:any, action) => {
-            return {...state, cardsTesting: [...state.cardsTesting, action.payload]}
+        setCardsColThree: (state: any, action) => {
+            return {...state, cardsColThree: [...state.cardsColThree, action.payload]}
         },
-        setCardsDone: (state:any, action) => {
-            return {...state, cardsDone: [...state.cardsDone, action.payload]}
+        setCardsColFour: (state: any, action) => {
+            return {...state, cardsColFour: [...state.cardsColFour, action.payload]}
         },
     }
 })
 
 export const {
     setUserName,
-    setCardsToDo,
-    removeCardToDo,
-    setCardsInProgress,
-    setCardsTesting,
-    setCardsDone,
+    setCardsColOne,
+    removeCardColOne,
+    changeCardColOne,
+    setCardsColTwo,
+    setCardsColThree,
+    setCardsColFour,
 } = userName.actions
 export default userName.reducer

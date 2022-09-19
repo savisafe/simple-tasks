@@ -1,18 +1,18 @@
 import React, {useState} from "react";
 
 import {useDispatch, useSelector} from "react-redux";
-import {setCardsInProgress} from "../reducer";
-import {Card} from "../Card";
+import {setCardsColFour} from "../reducer";
+import {CardForColOne} from "../cards/CardForColOne";
 
 
-export const CardsInProgress = () => {
+export const CreateCardsForColFour = () => {
     const dispatch = useDispatch()
     const [open, setOpen] = useState(false)
     const [save, setSave] = useState(false)
     const [newTitle, setNewTitle] = useState('')
     const [newText, setNewText] = useState('')
     const userName = useSelector((state: any) => state.userName.userName)
-    const cardsInProgress = useSelector( (state:any) => state.userName.cardsInProgress)
+    const cardsColFour = useSelector( (state:any) => state.userName.cardsColFour)
 
     const onChangeCard = (title:any, text:any) => {
         const cards = {
@@ -20,7 +20,7 @@ export const CardsInProgress = () => {
             text,
             id: Date.now(),
         }
-        dispatch(setCardsInProgress(cards))
+        dispatch(setCardsColFour(cards))
     }
 
     return (
@@ -79,15 +79,9 @@ export const CardsInProgress = () => {
             </div>
 
             {
-                cardsInProgress.map( (e:any,i:any) => (
-                    <Card
-                        key={i}
-                        userName={userName}
-                        title={e.title}
-                        text={e.text}
-                        id={e.id}
-                    />
-                ))
+                // cardsColFour.map( (e:any,i:any) => (
+                //
+                // ))
             }
 
             <button

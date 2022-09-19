@@ -1,22 +1,32 @@
 import React, {useState} from "react";
-import {CommentIcon} from "./icons/CommentIcon";
-import {UserIcon} from "./icons/UserIcon";
+import {CommentIcon} from "../icons/CommentIcon";
+import {UserIcon} from "../icons/UserIcon";
 import {useDispatch, useSelector} from "react-redux";
-import {removeCardToDo} from "./reducer";
+import {changeCardColOne, removeCardColOne} from "../reducer";
 
 type Props = {
     userName: string;
     title: string;
     text: string;
     id: number | null | undefined;
+    col: string;
 }
 
-export const Card = ({userName, title, text, id}: Props) => {
+export const CardForColOne = ({userName, title, text, id, col}: Props) => {
     const dispatch = useDispatch()
     const [open, setOpen] = useState(false)
     const [change, setChange] = useState(false)
     const [newTitle, setNewTitle] = useState(title)
     const [newText, setNewText] = useState(text)
+
+    const changeCard = (title: any, text: any) => {
+        const cards = {
+            title,
+            text,
+            id,
+        }
+        dispatch(changeCardColOne(cards))
+    }
 
     return (
         <>
@@ -139,7 +149,12 @@ export const Card = ({userName, title, text, id}: Props) => {
                                     fontSize: 12,
                                     textAlign: "left",
                                 }}>
-                                Автор: {userName}
+                                <div>
+                                    Колонка: {col}
+                                </div>
+                                <div>
+                                    Автор: {userName}
+                                </div>
                             </div>
 
                             <div>
@@ -212,6 +227,7 @@ export const Card = ({userName, title, text, id}: Props) => {
                             {change ? (
                                 <button type="button"
                                         onClick={() => {
+                                            changeCard(newTitle, newText)
                                             setChange(!change)
                                         }}
                                         className="btn btn-primary"
@@ -229,7 +245,7 @@ export const Card = ({userName, title, text, id}: Props) => {
 
                                     <button type="button"
                                             onClick={() => {
-                                                dispatch(removeCardToDo(Number(id)));
+                                                dispatch(removeCardColOne(Number(id)));
                                                 setOpen(!open);
                                             }}
                                             className="btn btn-danger"
