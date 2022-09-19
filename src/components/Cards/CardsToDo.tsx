@@ -4,7 +4,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {setCardsToDo} from "../reducer";
 import {Card} from "../Card";
 
-
 export const CardsToDo = () => {
     const dispatch = useDispatch()
     const [open, setOpen] = useState(false)
@@ -85,6 +84,7 @@ export const CardsToDo = () => {
                         userName={userName}
                         title={e.title}
                         text={e.text}
+                        id={e.id}
                     />
                 ))
             }

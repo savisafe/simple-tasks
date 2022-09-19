@@ -85,6 +85,7 @@ export const CardsDone = () => {
                         userName={userName}
                         title={e.title}
                         text={e.text}
+                        id={e.id}
                     />
                 ))
             }

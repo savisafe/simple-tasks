@@ -85,6 +85,7 @@ export const CardsInProgress = () => {
                         userName={userName}
                         title={e.title}
                         text={e.text}
+                        id={e.id}
                     />
                 ))
             }

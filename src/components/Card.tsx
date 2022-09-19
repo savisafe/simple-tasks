@@ -8,20 +8,16 @@ type Props = {
     userName: string;
     title: string;
     text: string;
+    id: number | null | undefined;
 }
 
-export const Card = ({userName, title, text}: Props) => {
+export const Card = ({userName, title, text, id}: Props) => {
     const dispatch = useDispatch()
     const [open, setOpen] = useState(false)
     const [change, setChange] = useState(false)
     const [newTitle, setNewTitle] = useState(title)
     const [newText, setNewText] = useState(text)
-
-    const cardsToDo = useSelector( (state:any) => state.userName.cardsToDo)
-
-    const removeCard = (cardsTodo:any) => {
-        dispatch(removeCardTodo(cardsTodo))
-    }
+    const cardsToDo = useSelector((state: any) => state.userName.cardsToDo)
 
     return (
         <>
@@ -66,97 +62,97 @@ export const Card = ({userName, title, text}: Props) => {
                 </div>
             </div>
 
-            {open ? (
-                <>
-                    <div className={`modal ${open ? '' : 'visibility'}`}
-                         style={{
-                             overflow: "hidden",
-                             display: "block",
-                             background: "rgba(0, 0, 0, 0.175)"
-                         }} tabIndex={-1}>
-                        <div className="modal-dialog">
-                            <div className="modal-content">
-                                <div className="modal-header">
-                                    <h5 className="modal-title">
-                                        {change ? (
-                                            <textarea
-                                                value={newTitle}
-                                                onChange={(e) => setNewTitle(e.target.value)}
-                                                style={{
-                                                    margin: 4,
-                                                    fontWeight: 700,
-                                                    height: 30,
-                                                    width: '100%',
-                                                    borderRadius: 8,
-                                                    border: "1px solid rgba(0, 0, 0, 0.175)",
-                                                }}
-                                                placeholder="Название вашей карточки"
-                                            />
-                                        ) : (
-                                            <div
-                                                onClick={() => setChange(!change)}>
-                                                {title}
-                                            </div>
-                                        )}
-                                    </h5>
-                                    <button type="button"
-                                            onClick={() => setOpen(!open)}
-                                            className="btn-close"
-                                            data-bs-dismiss="modal"
-                                            aria-label="Close">
-                                    </button>
-                                </div>
-                                <div className="modal-body">
-                                    <div style={{
-                                        textAlign: 'left'
-                                    }}>
-                                        {change ? (
-                                            <textarea
-                                                value={newText}
-                                                onChange={(e) => setNewText(e.target.value)}
-                                                style={{
-                                                    width: '100%',
-                                                    minHeight: 200,
-                                                    margin: 4,
-                                                    fontWeight: 700,
-                                                    borderRadius: 8,
-                                                    border: "1px solid rgba(0, 0, 0, 0.175)",
-                                                }}
-                                                placeholder=""
-                                            />
-                                        ) : (
-                                            <div
-                                                style={{
-                                                    wordBreak: 'break-all'
-                                                }}
-                                                onClick={() => setChange(!change)}>
-                                                {text}
-                                            </div>
-                                        )}
+            <div className={`modal ${open ? '' : 'visibility'}`}
+                 style={{
+                     overflow: "hidden",
+                     display: "block",
+                     background: "rgba(0, 0, 0, 0.175)"
+                 }} tabIndex={-1}>
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title">
+                                {change ? (
+                                    <textarea
+                                        value={newTitle}
+                                        onChange={(e) => setNewTitle(e.target.value)}
+                                        style={{
+                                            margin: 4,
+                                            fontWeight: 700,
+                                            height: 30,
+                                            width: '100%',
+                                            borderRadius: 8,
+                                            border: "1px solid rgba(0, 0, 0, 0.175)",
+                                        }}
+                                        placeholder="Название вашей карточки"
+                                    />
+                                ) : (
+                                    <div
+                                        onClick={() => setChange(!change)}>
+                                        {title}
                                     </div>
-                                </div>
-                                <div
-                                    className="modal-body">
-
+                                )}
+                            </h5>
+                            <button type="button"
+                                    onClick={() => {
+                                        setOpen(!open);
+                                    }}
+                                    className="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close">
+                            </button>
+                        </div>
+                        <div className="modal-body">
+                            <div style={{
+                                textAlign: 'left'
+                            }}>
+                                {change ? (
+                                    <textarea
+                                        value={newText}
+                                        onChange={(e) => setNewText(e.target.value)}
+                                        style={{
+                                            width: '100%',
+                                            minHeight: 200,
+                                            margin: 4,
+                                            fontWeight: 700,
+                                            borderRadius: 8,
+                                            border: "1px solid rgba(0, 0, 0, 0.175)",
+                                        }}
+                                        placeholder=""
+                                    />
+                                ) : (
                                     <div
                                         style={{
-                                            color: 'rgba(0, 0, 0, 0.175)',
-                                            fontSize: 12,
-                                            textAlign: "left",
-                                        }}>
-                                        Автор: {userName}
+                                            wordBreak: 'break-all'
+                                        }}
+                                        onClick={() => setChange(!change)}>
+                                        {text}
                                     </div>
+                                )}
+                            </div>
+                        </div>
+                        <div
+                            className="modal-body">
 
-                                    <div>
-                                        0 комментариев
-                                    </div>
+                            <div
+                                style={{
+                                    color: 'rgba(0, 0, 0, 0.175)',
+                                    fontSize: 12,
+                                    textAlign: "left",
+                                }}>
+                                Автор: {userName}
+                            </div>
 
-                                    <div style={{
-                                        marginTop: 15,
-                                        display: "flex",
-                                        alignItems: "center",
-                                    }}
-                                    >
+                            <div>
+                                0 комментариев
+                            </div>
+
+                            <div style={{
+                                marginTop: 15,
+                                display: "flex",
+                                alignItems: "center",
+                            }}
+                            >
                                 <textarea
                                     style={{
                                         width: '80%',
@@ -166,91 +162,85 @@ export const Card = ({userName, title, text}: Props) => {
                                     }}
                                     placeholder="Написать комментарий"
                                 />
-                                        <button
-                                            type="button"
-                                            className="btn btn-primary"
-                                            style={{
-                                                marginLeft: 8
-                                            }}
-                                        >Отправить
-                                        </button>
-                                    </div>
+                                <button
+                                    type="button"
+                                    className="btn btn-primary"
+                                    style={{
+                                        marginLeft: 8
+                                    }}
+                                >Отправить
+                                </button>
+                            </div>
 
+                            <div
+                                style={{
+                                    marginTop: 15,
+                                    padding: 5,
+                                    display: "block",
+                                    borderRadius: 8,
+                                    border: "1px solid rgba(0, 0, 0, 0.175)",
+                                }}>
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                    }}>
                                     <div
                                         style={{
-                                            marginTop: 15,
-                                            padding: 5,
-                                            display: "block",
-                                            borderRadius: 8,
-                                            border: "1px solid rgba(0, 0, 0, 0.175)",
+                                            width: 30
                                         }}>
-                                        <div
-                                            style={{
-                                                display: "flex",
-                                                alignItems: "center",
-                                            }}>
-                                            <div
-                                                style={{
-                                                    width: 30
-                                                }}>
-                                                <UserIcon/>
-                                            </div>
-                                            <div
-                                                style={{
-                                                    marginLeft: 8,
-                                                    color: 'rgba(0, 0, 0, 0.175)',
-                                                    fontSize: 12,
-                                                    textAlign: "left",
-                                                }}>
-                                                Имя пользователя
-                                            </div>
-                                        </div>
-                                        <div
-                                            style={{
-                                                textAlign: "left"
-                                            }}>Комментарий пользователя
-                                        </div>
+                                        <UserIcon/>
+                                    </div>
+                                    <div
+                                        style={{
+                                            marginLeft: 8,
+                                            color: 'rgba(0, 0, 0, 0.175)',
+                                            fontSize: 12,
+                                            textAlign: "left",
+                                        }}>
+                                        Имя пользователя
                                     </div>
                                 </div>
-
-                                <div className="modal-footer">
-                                    {change ? (
-                                        <button type="button"
-                                                onClick={() => {
-                                                    setChange(!change)
-                                                }}
-                                                className="btn btn-primary"
-                                        >Сохранить
-                                        </button>
-                                    ) : (
-                                        <>
-                                            <button type="button"
-                                                    onClick={() => {
-                                                        setChange(!change)
-                                                    }}
-                                                    className="btn btn-link"
-                                            >Изменить карточку
-                                            </button>
-
-                                            <button type="button"
-                                                    onClick={() => {
-                                                        removeCard(cardsToDo)
-                                                    }}
-                                                    className="btn btn-danger"
-                                            >Удалить карточку
-                                            </button>
-                                        </>
-                                    )}
+                                <div
+                                    style={{
+                                        textAlign: "left"
+                                    }}>Комментарий пользователя
                                 </div>
                             </div>
                         </div>
+
+                        <div className="modal-footer">
+                            {change ? (
+                                <button type="button"
+                                        onClick={() => {
+                                            setChange(!change)
+                                        }}
+                                        className="btn btn-primary"
+                                >Сохранить
+                                </button>
+                            ) : (
+                                <>
+                                    <button type="button"
+                                            onClick={() => {
+                                                setChange(!change)
+                                            }}
+                                            className="btn btn-link"
+                                    >Изменить карточку
+                                    </button>
+
+                                    <button type="button"
+                                            onClick={() => {
+                                                dispatch(removeCardTodo(Number(id)))
+                                            }}
+                                            className="btn btn-danger"
+                                    >Удалить карточку
+                                    </button>
+                                </>
+                            )}
+                        </div>
                     </div>
-                </>
-            ) : (
-                <></>
-            )}
-
-
+                </div>
+            </div>
         </>
     )
 }
