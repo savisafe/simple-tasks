@@ -17,7 +17,6 @@ export const Card = ({userName, title, text, id}: Props) => {
     const [change, setChange] = useState(false)
     const [newTitle, setNewTitle] = useState(title)
     const [newText, setNewText] = useState(text)
-    const cardsToDo = useSelector((state: any) => state.userName.cardsToDo)
 
     return (
         <>
@@ -230,7 +229,8 @@ export const Card = ({userName, title, text, id}: Props) => {
 
                                     <button type="button"
                                             onClick={() => {
-                                                dispatch(removeCardTodo(Number(id)))
+                                                dispatch(removeCardTodo(Number(id)));
+                                                setOpen(!open);
                                             }}
                                             className="btn btn-danger"
                                     >Удалить карточку
