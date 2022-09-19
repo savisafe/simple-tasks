@@ -16,6 +16,9 @@ const userName = createSlice({
         setCardsToDo: (state:any, action) => {
             return {...state, cardsToDo: [...state.cardsToDo, action.payload]}
         },
+        removeCardTodo: (state:any, action:any) => {
+            return {...state, cardsToDo: state.cardsToDo.filter( (e:any) => e.id !== action.payload)}
+        },
         setCardsInProgress: (state:any, action) => {
             return {...state, cardsInProgress: [...state.cardsInProgress, action.payload]}
         },
@@ -31,6 +34,7 @@ const userName = createSlice({
 export const {
     setUserName,
     setCardsToDo,
+    removeCardTodo,
     setCardsInProgress,
     setCardsTesting,
     setCardsDone,
