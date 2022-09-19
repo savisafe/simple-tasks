@@ -9,10 +9,11 @@ type Props = {
     title: string;
     text: string;
     id: number | null | undefined;
+    comments: number | null | undefined;
     col: string;
 }
 
-export const CardForColOne = ({userName, title, text, id, col}: Props) => {
+export const CardForColOne = ({userName, title, text, id, col, comments}: Props) => {
     const dispatch = useDispatch()
     const [open, setOpen] = useState(false)
     const [change, setChange] = useState(false)
@@ -56,15 +57,31 @@ export const CardForColOne = ({userName, title, text, id, col}: Props) => {
                             width: '100%'
                         }}
                     >
-                        <div style={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            color: 'rgba(0, 0, 0, 0.175)',
-                            fontSize: 12,
-                        }}>
-                            {userName || 'Пользователь'}
-                            <div>
-                                <CommentIcon/> {0}
+                        <div
+                            style={{
+                                color: 'rgba(0, 0, 0, 0.175)',
+                                fontSize: 12,
+                            }}>
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'left',
+                                }}>
+                                {userName || 'Пользователь'}
+                            </div>
+                            <div
+                                style={{
+                                    marginTop: 8,
+                                    display: 'flex',
+                                    justifyContent: 'left',
+                                }}>
+                                <CommentIcon/>
+                                <div
+                                    style={{
+                                        marginLeft: 8
+                                    }}>
+                                    {comments}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -96,8 +113,7 @@ export const CardForColOne = ({userName, title, text, id, col}: Props) => {
                                         placeholder="Название вашей карточки"
                                     />
                                 ) : (
-                                    <div
-                                        onClick={() => setChange(!change)}>
+                                    <div>
                                         {title}
                                     </div>
                                 )}
@@ -133,8 +149,7 @@ export const CardForColOne = ({userName, title, text, id, col}: Props) => {
                                     <div
                                         style={{
                                             wordBreak: 'break-all'
-                                        }}
-                                        onClick={() => setChange(!change)}>
+                                        }}>
                                         {text}
                                     </div>
                                 )}
@@ -158,7 +173,7 @@ export const CardForColOne = ({userName, title, text, id, col}: Props) => {
                             </div>
 
                             <div>
-                                0 комментариев
+                                {comments} комментариев
                             </div>
 
                             <div style={{

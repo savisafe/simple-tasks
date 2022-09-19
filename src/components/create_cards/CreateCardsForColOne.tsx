@@ -13,6 +13,7 @@ export const CreateCardsForColOne = ({name}: Props) => {
     const [save, setSave] = useState(false)
     const [newTitle, setNewTitle] = useState('')
     const [newText, setNewText] = useState('')
+    const [comments, setComments] = useState(0)
     const userName = useSelector((state: any) => state.userName.userName)
     const cards = useSelector((state: any) => state.userName.cardsColOne)
 
@@ -20,6 +21,7 @@ export const CreateCardsForColOne = ({name}: Props) => {
         const cards = {
             title,
             text,
+            comments,
             id: Date.now(),
         }
         dispatch(setCardsColOne(cards))
@@ -89,6 +91,7 @@ export const CreateCardsForColOne = ({name}: Props) => {
                         text={e.text}
                         id={e.id}
                         col={name}
+                        comments={comments}
                     />
                 ))
             }
