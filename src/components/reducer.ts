@@ -27,6 +27,14 @@ const userName = createSlice({
                 text: state.cardsColOne[i].text = action.payload.text,
             }
         },
+        createCommentColOne: (state: any, action) => {
+            console.log(action)
+            let i = state.cardsColOne.findIndex( (e:any) => e.id === action.payload.id)
+            state.cardsColOne[i] = {
+                ...state.cardsColOne[i],
+                comments: [...action.payload.comments],
+            }
+        },
 
         setCardsColTwo: (state: any, action) => {
             return {...state, cardsColTwo: [...state.cardsColTwo, action.payload]}
@@ -81,6 +89,7 @@ export const {
     setCardsColOne,
     removeCardColOne,
     changeCardColOne,
+    createCommentColOne,
 
     setCardsColTwo,
     removeCardColTwo,

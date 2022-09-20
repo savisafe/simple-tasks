@@ -1,32 +1,44 @@
 import React, {useState} from "react";
-import {CommentIcon} from "../icons/CommentIcon";
-import {UserIcon} from "../icons/UserIcon";
 import {useDispatch, useSelector} from "react-redux";
-import {changeCardColOne, removeCardColOne} from "../reducer";
+
+import {CommentIcon} from "../icons/CommentIcon";
+import {CommentsColOne} from "../comments/CommentsColOne";
+import {changeCardColOne, createCommentColOne, removeCardColOne} from "../reducer";
 
 type Props = {
     userName: string;
     title: string;
     text: string;
     id: number | null | undefined;
-    comments: number | null | undefined;
     col: string;
 }
 
-export const CardForColOne = ({userName, title, text, id, col, comments}: Props) => {
+export const CardForColOne = ({userName, title, text, id, col}: Props) => {
     const dispatch = useDispatch()
     const [open, setOpen] = useState(false)
     const [change, setChange] = useState(false)
     const [newTitle, setNewTitle] = useState(title)
     const [newText, setNewText] = useState(text)
+    const [comments, setComments] = useState('')
+    const cards = useSelector((state: any) => state.userName.cardsColOne)
+    const checkComment = cards.map((e: any) => e.comments)
+    console.log(checkComment)
 
     const changeCard = (title: any, text: any) => {
-        const cards = {
+        const card = {
             title,
             text,
             id,
         }
-        dispatch(changeCardColOne(cards))
+        dispatch(changeCardColOne(card))
+    }
+
+    const createComment = (comments: any) => {
+        const card = {
+            id,
+            comments,
+        }
+        dispatch(createCommentColOne(card))
     }
 
     return (
@@ -80,7 +92,7 @@ export const CardForColOne = ({userName, title, text, id, col, comments}: Props)
                                     style={{
                                         marginLeft: 8
                                     }}>
-                                    {comments}
+                                    {0}
                                 </div>
                             </div>
                         </div>
@@ -173,7 +185,7 @@ export const CardForColOne = ({userName, title, text, id, col, comments}: Props)
                             </div>
 
                             <div>
-                                {comments} комментариев
+                                {0} комментариев
                             </div>
 
                             <div style={{
@@ -189,6 +201,8 @@ export const CardForColOne = ({userName, title, text, id, col, comments}: Props)
                                         height: 38,
                                         border: "1px solid rgba(0, 0, 0, 0.175)",
                                     }}
+                                    value={String(comments)}
+                                    onChange={(e) => setComments(e.target.value)}
                                     placeholder="Написать комментарий"
                                 />
                                 <button
@@ -197,45 +211,17 @@ export const CardForColOne = ({userName, title, text, id, col, comments}: Props)
                                     style={{
                                         marginLeft: 8
                                     }}
+                                    onClick={() => {
+                                        createComment(comments);
+                                    }}
                                 >Отправить
                                 </button>
                             </div>
 
-                            <div
-                                style={{
-                                    marginTop: 15,
-                                    padding: 5,
-                                    display: "block",
-                                    borderRadius: 8,
-                                    border: "1px solid rgba(0, 0, 0, 0.175)",
-                                }}>
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                    }}>
-                                    <div
-                                        style={{
-                                            width: 30
-                                        }}>
-                                        <UserIcon/>
-                                    </div>
-                                    <div
-                                        style={{
-                                            marginLeft: 8,
-                                            color: 'rgba(0, 0, 0, 0.175)',
-                                            fontSize: 12,
-                                            textAlign: "left",
-                                        }}>
-                                        Имя пользователя
-                                    </div>
-                                </div>
-                                <div
-                                    style={{
-                                        textAlign: "left"
-                                    }}>Комментарий пользователя
-                                </div>
-                            </div>
+
+                            <CommentsColOne/>
+
+
                         </div>
 
                         <div className="modal-footer">
