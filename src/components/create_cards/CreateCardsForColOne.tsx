@@ -21,7 +21,6 @@ export const CreateCardsForColOne = ({name}: Props) => {
             title,
             text,
             id: Date.now(),
-            comments: [],
         }
         dispatch(setCardsColOne(cards))
     }
