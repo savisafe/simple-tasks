@@ -17,6 +17,7 @@ export const CardForColOne = ({userName, title, text, id, col}: Props) => {
     const dispatch = useDispatch()
     const [open, setOpen] = useState(false)
     const [change, setChange] = useState(false)
+    const [send, setSend] = useState(false)
     const [newTitle, setNewTitle] = useState(title)
     const [newText, setNewText] = useState(text)
     const [comments, setComments] = useState('')
@@ -39,6 +40,7 @@ export const CardForColOne = ({userName, title, text, id, col}: Props) => {
             comments,
         }
         dispatch(createCommentColOne(card))
+        setComments('')
     }
 
     return (
@@ -201,7 +203,7 @@ export const CardForColOne = ({userName, title, text, id, col}: Props) => {
                                         height: 38,
                                         border: "1px solid rgba(0, 0, 0, 0.175)",
                                     }}
-                                    value={String(comments)}
+                                    value={comments}
                                     onChange={(e) => setComments(e.target.value)}
                                     placeholder="Написать комментарий"
                                 />
@@ -213,14 +215,17 @@ export const CardForColOne = ({userName, title, text, id, col}: Props) => {
                                     }}
                                     onClick={() => {
                                         createComment(comments);
+                                        setSend(true)
                                     }}
                                 >Отправить
                                 </button>
                             </div>
 
-
-                            <CommentsColOne/>
-
+                            {send ? (
+                                <CommentsColOne/>
+                            ) : (
+                                <></>
+                            )}
 
                         </div>
 

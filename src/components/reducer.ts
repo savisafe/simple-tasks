@@ -32,7 +32,7 @@ const userName = createSlice({
             let i = state.cardsColOne.findIndex( (e:any) => e.id === action.payload.id)
             state.cardsColOne[i] = {
                 ...state.cardsColOne[i],
-                comments: [...action.payload.comments],
+                comments: [action.payload.comments],
             }
         },
 

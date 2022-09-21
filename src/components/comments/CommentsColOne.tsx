@@ -4,6 +4,7 @@ import {useSelector} from "react-redux";
 
 export const CommentsColOne = () => {
     const cards = useSelector((state: any) => state.userName.cardsColOne)
+    const title = useSelector((state: any) => state.userName.cardsColOne.title)
     const userName = useSelector((state: any) => state.userName.userName)
 
 
