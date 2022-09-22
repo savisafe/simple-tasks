@@ -20,10 +20,13 @@ export const CardForColOne = ({userName, title, text, id, col}: Props) => {
     const [send, setSend] = useState(false)
     const [newTitle, setNewTitle] = useState(title)
     const [newText, setNewText] = useState(text)
-    const [comments, setComments] = useState('')
+    const [comment, setComment] = useState('')
     const cards = useSelector((state: any) => state.userName.cardsColOne)
-    const checkComment = cards.map((e: any) => e.comments)
-    console.log(checkComment)
+    const comments = cards.map( (e:any, i:any) => e.comments)
+
+    if (send === true) {
+        console.log(comments.map( (e:any, i:any) => e.comment))
+    }
 
     const changeCard = (title: any, text: any) => {
         const card = {
@@ -40,7 +43,7 @@ export const CardForColOne = ({userName, title, text, id, col}: Props) => {
             comments,
         }
         dispatch(createCommentColOne(card))
-        setComments('')
+        setComment('')
     }
 
     return (
@@ -203,8 +206,8 @@ export const CardForColOne = ({userName, title, text, id, col}: Props) => {
                                         height: 38,
                                         border: "1px solid rgba(0, 0, 0, 0.175)",
                                     }}
-                                    value={comments}
-                                    onChange={(e) => setComments(e.target.value)}
+                                    value={comment}
+                                    onChange={(e) => setComment(e.target.value)}
                                     placeholder="Написать комментарий"
                                 />
                                 <button
@@ -214,7 +217,7 @@ export const CardForColOne = ({userName, title, text, id, col}: Props) => {
                                         marginLeft: 8
                                     }}
                                     onClick={() => {
-                                        createComment(comments);
+                                        createComment(comment);
                                         setSend(true)
                                     }}
                                 >Отправить
@@ -222,7 +225,18 @@ export const CardForColOne = ({userName, title, text, id, col}: Props) => {
                             </div>
 
                             {send ? (
-                                <CommentsColOne/>
+                                <>
+                                    {
+                                        cards.map( (e:any, i:any) => (
+                                            <CommentsColOne
+                                                key={i}
+                                                userName={userName}
+                                                comment={e.comments[i].comment}
+                                            />
+                                        ))
+                                    }
+                                </>
+
                             ) : (
                                 <></>
                             )}
