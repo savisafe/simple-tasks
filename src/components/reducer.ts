@@ -28,7 +28,6 @@ const userName = createSlice({
             }
         },
         createCommentColOne: (state: any, action) => {
-            console.log(action)
             let i = state.cardsColOne.findIndex( (e:any) => e.id === action.payload.id)
             state.cardsColOne[i].comments.push({
                 comment: action.payload.comments,

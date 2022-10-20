@@ -1,10 +1,10 @@
 import React, {useState} from "react";
-import {CreateCardsForColOne} from "../create_cards/CreateCardsForColOne";
+import {CreateCard} from "../create_cards/CreateCard";
 
 type Props = {
     name: string
 }
-export const ColumnOne = ({name}: Props) => {
+export const Column = ({name}: Props) => {
     const [nameCol, setNameCol] = useState(name)
     const [open, setOpen] = useState(false)
 
@@ -58,7 +58,7 @@ export const ColumnOne = ({name}: Props) => {
                 </div>
             </div>
 
-            <CreateCardsForColOne name={name}/>
+            <CreateCard name={name}/>
         </>
 
     )

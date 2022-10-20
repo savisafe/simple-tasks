@@ -1,8 +1,9 @@
 import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import plural from 'plural-ru';
 
 import {CommentIcon} from "../icons/CommentIcon";
-import {CommentsColOne} from "../comments/CommentsColOne";
+import {Comment} from "../comments/Comment";
 import {changeCardColOne, createCommentColOne, removeCardColOne} from "../reducer";
 
 type Props = {
@@ -10,23 +11,20 @@ type Props = {
     title: string;
     text: string;
     id: number | null | undefined;
+    comments: Array<any>;
     col: string;
 }
 
-export const CardForColOne = ({userName, title, text, id, col}: Props) => {
+export const Card = ({userName, title, text, id, col, comments}: Props) => {
     const dispatch = useDispatch()
     const [open, setOpen] = useState(false)
     const [change, setChange] = useState(false)
     const [send, setSend] = useState(false)
     const [newTitle, setNewTitle] = useState(title)
     const [newText, setNewText] = useState(text)
-    const [comment, setComment] = useState('')
-    const cards = useSelector((state: any) => state.userName.cardsColOne)
-    const comments = cards.map( (e:any, i:any) => e.comments)
+    const [commentValue, setCommentValue] = useState('')
 
-    if (send === true) {
-        console.log(comments.map( (e:any, i:any) => e.comment))
-    }
+    console.log(comments.map(e => e.comment))
 
     const changeCard = (title: any, text: any) => {
         const card = {
@@ -43,7 +41,7 @@ export const CardForColOne = ({userName, title, text, id, col}: Props) => {
             comments,
         }
         dispatch(createCommentColOne(card))
-        setComment('')
+        setCommentValue('')
     }
 
     return (
@@ -97,7 +95,7 @@ export const CardForColOne = ({userName, title, text, id, col}: Props) => {
                                     style={{
                                         marginLeft: 8
                                     }}>
-                                    {0}
+                                    {comments.length}
                                 </div>
                             </div>
                         </div>
@@ -190,7 +188,7 @@ export const CardForColOne = ({userName, title, text, id, col}: Props) => {
                             </div>
 
                             <div>
-                                {0} комментариев
+                                {comments.length} {plural(comments.length, 'коментарий', 'коментария', 'коментариев')}
                             </div>
 
                             <div style={{
@@ -206,8 +204,8 @@ export const CardForColOne = ({userName, title, text, id, col}: Props) => {
                                         height: 38,
                                         border: "1px solid rgba(0, 0, 0, 0.175)",
                                     }}
-                                    value={comment}
-                                    onChange={(e) => setComment(e.target.value)}
+                                    value={commentValue}
+                                    onChange={(e) => setCommentValue(e.target.value)}
                                     placeholder="Написать комментарий"
                                 />
                                 <button
@@ -217,7 +215,7 @@ export const CardForColOne = ({userName, title, text, id, col}: Props) => {
                                         marginLeft: 8
                                     }}
                                     onClick={() => {
-                                        createComment(comment);
+                                        createComment(commentValue);
                                         setSend(true)
                                     }}
                                 >Отправить
@@ -225,17 +223,21 @@ export const CardForColOne = ({userName, title, text, id, col}: Props) => {
                             </div>
 
                             {send ? (
-                                <>
+                                <div style={{
+                                    maxHeight: 500,
+                                    overflow: 'auto'
+                                }}>
                                     {
-                                        cards.map( (e:any, i:any) => (
-                                            <CommentsColOne
+                                        comments.map( (e:any, i:any) => {
+                                            return (
+                                            <Comment
                                                 key={i}
                                                 userName={userName}
-                                                comment={e.comments[i].comment}
+                                                comment={e.comment}
                                             />
-                                        ))
+                                        )})
                                     }
-                                </>
+                                </div>
 
                             ) : (
                                 <></>

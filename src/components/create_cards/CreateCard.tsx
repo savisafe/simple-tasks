@@ -2,12 +2,13 @@ import React, {useState} from "react";
 
 import {useDispatch, useSelector} from "react-redux";
 import {setCardsColOne} from "../reducer";
-import {CardForColOne} from "../cards/CardForColOne";
+
+import {Card} from "../cards/Card";
 
 type Props = {
     name: string;
 }
-export const CreateCardsForColOne = ({name}: Props) => {
+export const CreateCard = ({name}: Props) => {
     const dispatch = useDispatch()
     const [open, setOpen] = useState(false)
     const [save, setSave] = useState(false)
@@ -83,13 +84,14 @@ export const CreateCardsForColOne = ({name}: Props) => {
 
             {
                 cards.map((e: any, i: any) => (
-                    <CardForColOne
+                    <Card
                         key={i}
                         userName={userName}
                         title={e.title}
                         text={e.text}
                         id={e.id}
                         col={name}
+                        comments={e.comments}
                     />
                 ))
             }
