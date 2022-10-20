@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {UserIcon} from "../icons/UserIcon";
 import EditIcon from "../icons/EditIcon";
+import CheckMarkIcon from "../icons/checkMarkIcon";
 
 type Props = {
     userName: string;
@@ -18,6 +19,7 @@ export const Comment = ({userName, comment}: Props) => {
                 display: "block",
                 borderRadius: 8,
                 border: "1px solid rgba(0, 0, 0, 0.175)",
+                background: `${edit ? '#0d6efd' : ''}`,
             }}>
             <div
                 style={{
@@ -35,12 +37,12 @@ export const Comment = ({userName, comment}: Props) => {
                         style={{
                             width: 30
                         }}>
-                        <UserIcon/>
+                        <UserIcon fill={edit ? 'white' : '#1C53F4'}/>
                     </div>
                     <div
                         style={{
                             marginLeft: 8,
-                            color: 'rgba(0, 0, 0, 0.175)',
+                            color: `${edit ? 'white' : 'rgba(0, 0, 0, 0.175)'}`,
                             fontSize: 12,
                             textAlign: "left",
                         }}>
@@ -54,7 +56,7 @@ export const Comment = ({userName, comment}: Props) => {
                     }}
                     onClick={() => {setEdit(!edit)}}
                 >
-                    <EditIcon/>
+                    {edit ? (<CheckMarkIcon/>) : (<EditIcon/>)}
                 </div>
             </div>
             <div
@@ -62,11 +64,14 @@ export const Comment = ({userName, comment}: Props) => {
                     textAlign: "left"
                 }}>
                 {edit ? (
-                    <textarea
+                    <input
                         style={{
                             width: '100%',
                             border: 0,
                             height: 'auto',
+                            background: `${edit ? '#0d6efd' : ''}`,
+                            color: `${edit ? 'white' : ''}`,
+
                         }}
                         value={comment}
                         onChange={(e) => setCommentValue(e.target.value)}
