@@ -1,15 +1,24 @@
 import React, {useState} from "react";
 import {UserIcon} from "../icons/UserIcon";
 import EditIcon from "../icons/EditIcon";
-import CheckMarkIcon from "../icons/checkMarkIcon";
+import CheckMarkIcon from "../icons/CheckMarkIcon";
 
 type Props = {
     userName: string;
     comment: string;
 }
 export const Comment = ({userName, comment}: Props) => {
-    const [commentValue, setCommentValue] = useState('')
+    const [commentValue, setCommentValue] = useState(comment)
+    const [updateComment, setUpdateComment] = useState('')
     const [edit, setEdit] = useState(false)
+
+    const handleKeyDown = (e: any) => {
+        if (e.key === 'Enter') {
+            setEdit(!edit)
+        }
+    }
+
+    console.log(updateComment)
 
     return (
         <div
@@ -64,7 +73,7 @@ export const Comment = ({userName, comment}: Props) => {
                     textAlign: "left"
                 }}>
                 {edit ? (
-                    <input
+                    <textarea
                         style={{
                             width: '100%',
                             border: 0,
@@ -73,9 +82,13 @@ export const Comment = ({userName, comment}: Props) => {
                             color: `${edit ? 'white' : ''}`,
 
                         }}
-                        value={comment}
-                        onChange={(e) => setCommentValue(e.target.value)}
+                        value={commentValue}
+                        onChange={(e) => {
+                            setCommentValue(e.target.value);
+                            setUpdateComment(commentValue)
+                        }}
                         placeholder="Изменить комментарий"
+                        onKeyDown={handleKeyDown}
                     />
                 ) : (
                     <>
