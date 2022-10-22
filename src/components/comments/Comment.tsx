@@ -4,36 +4,32 @@ import {useDispatch} from "react-redux";
 import {UserIcon} from "../icons/UserIcon";
 import EditIcon from "../icons/EditIcon";
 import CheckMarkIcon from "../icons/CheckMarkIcon";
-import {createCommentColOne, updateCommentColOne} from "../reducer";
+import {createCommentColOne, removeCardColOne, removeCommentColOne, updateCommentColOne} from "../reducer";
 import CloseIcon from "../icons/TrashIcon";
 import TrashIcon from "../icons/TrashIcon";
 
 type Props = {
     userName: string;
     comment: string;
+    commentId: string;
     id: number | null | undefined;
+    comments: Array<any>;
+
 }
-export const Comment = ({userName, comment, id}: Props) => {
+export const Comment = ({userName, comment, id, commentId, comments}: Props) => {
     const dispatch = useDispatch()
     const [commentValue, setCommentValue] = useState(comment)
     const [newComment, setNewComment] = useState('')
     const [edit, setEdit] = useState(false)
 
-    const updateComment = (comments: any) => {
-        const card = {
-            id,
-            comments,
-        }
-        dispatch(updateCommentColOne(card))
-    }
+    console.log(commentId)
 
     const handleKeyDown = (e: any) => {
         if (e.key === 'Enter') {
             setEdit(!edit)
+            console.log(comment)
         }
     }
-
-    console.log(newComment)
 
     return (
         <div
@@ -85,10 +81,14 @@ export const Comment = ({userName, comment, id}: Props) => {
                 >
                     {edit ? (
                             <div style={{display: "flex"}}>
-                                <div>
+                                <div
+                                    onClick={() => {
+                                        dispatch(removeCommentColOne(Number(commentId)));
+                                    }}
+                                >
                                     <TrashIcon/>
                                 </div>
-                                <div onClick={() => updateComment(commentValue)}>
+                                <div>
                                     <CheckMarkIcon/>
                                 </div>
                             </div>

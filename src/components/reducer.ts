@@ -37,19 +37,17 @@ const userName = createSlice({
         updateCommentColOne: (state: any, action) => {
         },
         removeCommentColOne: (state: any, action) => {
-            let i = state.cardsColOne.findIndex((e: any) => e.id === action.payload.id)
-            state.cardsColOne = state.cardsColOne[i].comments.filter((e: any) => e.commentId !== action.payload)
         },
     }
 })
 
 export const {
     createUserName,
-
     createCardsColOne,
     removeCardColOne,
     changeCardColOne,
     createCommentColOne,
     updateCommentColOne,
+    removeCommentColOne
 } = userName.actions
 export default userName.reducer

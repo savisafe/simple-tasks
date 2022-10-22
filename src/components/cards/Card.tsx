@@ -48,6 +48,7 @@ export const Card = ({userName, title, text, id, col, comments}: Props) => {
         if (e.key === 'Enter') {
             createComment(commentValue);
             setSend(true)
+
         }
     }
 
@@ -255,6 +256,8 @@ export const Card = ({userName, title, text, id, col, comments}: Props) => {
                                                     id={id}
                                                     userName={userName}
                                                     comment={e.comment}
+                                                    comments={comments}
+                                                    commentId={e.commentId}
                                                 />
                                             )
                                         })
