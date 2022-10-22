@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import plural from 'plural-ru';
 
 import {CommentIcon} from "../icons/CommentIcon";
@@ -24,8 +24,6 @@ export const Card = ({userName, title, text, id, col, comments}: Props) => {
     const [newText, setNewText] = useState(text)
     const [commentValue, setCommentValue] = useState('')
 
-    console.log(comments.map(e => e.comment))
-
     const changeCard = (title: any, text: any) => {
         const card = {
             title,
@@ -36,12 +34,21 @@ export const Card = ({userName, title, text, id, col, comments}: Props) => {
     }
 
     const createComment = (comments: any) => {
-        const card = {
-            id,
-            comments,
+       if (commentValue.length > 0) {
+            const card = {
+                id,
+                comments,
+            }
+            dispatch(createCommentColOne(card))
+            setCommentValue('')
         }
-        dispatch(createCommentColOne(card))
-        setCommentValue('')
+    }
+
+    const handleKeyDown = (e: any) => {
+        if (e.key === 'Enter') {
+            createComment(commentValue);
+            setSend(true)
+        }
     }
 
     return (
@@ -59,12 +66,17 @@ export const Card = ({userName, title, text, id, col, comments}: Props) => {
                         style={{
                             fontWeight: 700,
                             wordWrap: "break-word",
+                            maxHeight: 100,
+                            overflow: "auto",
                         }}
                     >{title}</div>
                     <div
                         style={{
                             textAlign: 'left',
                             wordWrap: "break-word",
+                            maxHeight: 203,
+                            wordBreak: "break-all",
+                            overflow: "auto",
                         }}
                     >{text}</div>
                     <div
@@ -128,7 +140,11 @@ export const Card = ({userName, title, text, id, col, comments}: Props) => {
                                         placeholder="Название вашей карточки"
                                     />
                                 ) : (
-                                    <div>
+                                    <div style={{
+                                        maxHeight: 100,
+                                        wordBreak: "break-all",
+                                        overflow: "auto",
+                                    }}>
                                         {title}
                                     </div>
                                 )}
@@ -163,7 +179,9 @@ export const Card = ({userName, title, text, id, col, comments}: Props) => {
                                 ) : (
                                     <div
                                         style={{
-                                            wordBreak: 'break-all'
+                                            maxHeight: 300,
+                                            wordBreak: "break-all",
+                                            overflow: "auto",
                                         }}>
                                         {text}
                                     </div>
@@ -197,16 +215,18 @@ export const Card = ({userName, title, text, id, col, comments}: Props) => {
                                 alignItems: "center",
                             }}
                             >
-                                <textarea
+                                <input
                                     style={{
                                         width: '80%',
                                         borderRadius: 8,
                                         height: 38,
                                         border: "1px solid rgba(0, 0, 0, 0.175)",
+                                        whiteSpace: 'nowrap'
                                     }}
                                     value={commentValue}
                                     onChange={(e) => setCommentValue(e.target.value)}
                                     placeholder="Написать комментарий"
+                                    onKeyDown={handleKeyDown}
                                 />
                                 <button
                                     type="button"
@@ -224,7 +244,7 @@ export const Card = ({userName, title, text, id, col, comments}: Props) => {
 
                             {send ? (
                                 <div style={{
-                                    maxHeight: 500,
+                                    maxHeight: 400,
                                     overflow: 'auto'
                                 }}>
                                     {
@@ -232,6 +252,7 @@ export const Card = ({userName, title, text, id, col, comments}: Props) => {
                                             return (
                                             <Comment
                                                 key={i}
+                                                id={id}
                                                 userName={userName}
                                                 comment={e.comment}
                                             />

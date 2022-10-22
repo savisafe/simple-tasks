@@ -1,16 +1,29 @@
 import React, {useState} from "react";
+import {useDispatch} from "react-redux";
+
 import {UserIcon} from "../icons/UserIcon";
 import EditIcon from "../icons/EditIcon";
 import CheckMarkIcon from "../icons/CheckMarkIcon";
+import {createCommentColOne, updateCommentColOne} from "../reducer";
 
 type Props = {
     userName: string;
     comment: string;
+    id: number | null | undefined;
 }
-export const Comment = ({userName, comment}: Props) => {
+export const Comment = ({userName, comment, id}: Props) => {
+    const dispatch = useDispatch()
     const [commentValue, setCommentValue] = useState(comment)
-    const [updateComment, setUpdateComment] = useState('')
+    const [newComment, setNewComment] = useState('')
     const [edit, setEdit] = useState(false)
+
+    const updateComment = (comments: any) => {
+        const card = {
+            id,
+            comments,
+        }
+        dispatch(updateCommentColOne(card))
+    }
 
     const handleKeyDown = (e: any) => {
         if (e.key === 'Enter') {
@@ -18,13 +31,14 @@ export const Comment = ({userName, comment}: Props) => {
         }
     }
 
-    console.log(updateComment)
+    console.log(newComment)
 
     return (
         <div
             style={{
                 marginTop: 15,
                 padding: 5,
+                height: 100,
                 display: "block",
                 borderRadius: 8,
                 border: "1px solid rgba(0, 0, 0, 0.175)",
@@ -65,7 +79,14 @@ export const Comment = ({userName, comment}: Props) => {
                     }}
                     onClick={() => {setEdit(!edit)}}
                 >
-                    {edit ? (<CheckMarkIcon/>) : (<EditIcon/>)}
+                    {edit ? (
+                        <div onClick={() => updateComment(commentValue)}>
+                            <CheckMarkIcon/>
+                        </div>)
+                        :
+                        (
+                            <EditIcon/>
+                        )}
                 </div>
             </div>
             <div
@@ -76,16 +97,16 @@ export const Comment = ({userName, comment}: Props) => {
                     <textarea
                         style={{
                             width: '100%',
-                            border: 0,
+                            border: 'none',
+                            outline: 'none',
                             height: 'auto',
                             background: `${edit ? '#0d6efd' : ''}`,
                             color: `${edit ? 'white' : ''}`,
-
                         }}
                         value={commentValue}
                         onChange={(e) => {
                             setCommentValue(e.target.value);
-                            setUpdateComment(commentValue)
+                            setNewComment(commentValue)
                         }}
                         placeholder="Изменить комментарий"
                         onKeyDown={handleKeyDown}
@@ -95,8 +116,6 @@ export const Comment = ({userName, comment}: Props) => {
                         {comment}
                     </>
                 )}
-
-
             </div>
         </div>
 

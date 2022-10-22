@@ -66,7 +66,7 @@ export const CreateCard = ({name}: Props) => {
                         textAlign: "left",
                         marginLeft: 10
                     }}>
-                    <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+                    <div style={{display: "flex", alignItems: "center"}}>
                         <button type="button"
                                 onClick={() => {
                                     onChangeCard(newTitle, newText)
@@ -77,6 +77,16 @@ export const CreateCard = ({name}: Props) => {
                                 }}
                                 disabled={newTitle === ''}
                                 className="btn btn-primary">Сохранить
+                        </button>
+                        <button type="button"
+                                style={{
+                                    marginLeft: 10
+                                }}
+                                onClick={() => {
+                                    setOpen(!open);
+                                    setSave(!save);
+                                }}
+                                className="btn btn-link">Отменить
                         </button>
                     </div>
                 </div>
