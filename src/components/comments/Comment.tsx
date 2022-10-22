@@ -5,6 +5,8 @@ import {UserIcon} from "../icons/UserIcon";
 import EditIcon from "../icons/EditIcon";
 import CheckMarkIcon from "../icons/CheckMarkIcon";
 import {createCommentColOne, updateCommentColOne} from "../reducer";
+import CloseIcon from "../icons/TrashIcon";
+import TrashIcon from "../icons/TrashIcon";
 
 type Props = {
     userName: string;
@@ -77,15 +79,27 @@ export const Comment = ({userName, comment, id}: Props) => {
                         marginTop: '-10px',
                         color: 'rgba(0, 0, 0, 0.175)',
                     }}
-                    onClick={() => {setEdit(!edit)}}
+                    onClick={() => {
+                        setEdit(!edit)
+                    }}
                 >
                     {edit ? (
-                        <div onClick={() => updateComment(commentValue)}>
-                            <CheckMarkIcon/>
-                        </div>)
+                            <div style={{display: "flex"}}>
+                                <div>
+                                    <TrashIcon/>
+                                </div>
+                                <div onClick={() => updateComment(commentValue)}>
+                                    <CheckMarkIcon/>
+                                </div>
+                            </div>
+                        )
                         :
                         (
-                            <EditIcon/>
+                            <div style={{display: "flex"}}>
+                                <div>
+                                    <EditIcon/>
+                                </div>
+                            </div>
                         )}
                 </div>
             </div>
@@ -94,23 +108,26 @@ export const Comment = ({userName, comment, id}: Props) => {
                     textAlign: "left"
                 }}>
                 {edit ? (
-                    <textarea
-                        style={{
-                            width: '100%',
-                            border: 'none',
-                            outline: 'none',
-                            height: 'auto',
-                            background: `${edit ? '#0d6efd' : ''}`,
-                            color: `${edit ? 'white' : ''}`,
-                        }}
-                        value={commentValue}
-                        onChange={(e) => {
-                            setCommentValue(e.target.value);
-                            setNewComment(commentValue)
-                        }}
-                        placeholder="Изменить комментарий"
-                        onKeyDown={handleKeyDown}
-                    />
+                    <>
+                        <textarea
+                            style={{
+                                width: '100%',
+                                border: 'none',
+                                outline: 'none',
+                                height: 'auto',
+                                background: `${edit ? '#0d6efd' : ''}`,
+                                color: `${edit ? 'white' : ''}`,
+                            }}
+                            value={commentValue}
+                            onChange={(e) => {
+                                setCommentValue(e.target.value);
+                                setNewComment(commentValue)
+                            }}
+                            placeholder="Изменить комментарий"
+                            onKeyDown={handleKeyDown}
+                        />
+                    </>
+
                 ) : (
                     <>
                         {comment}

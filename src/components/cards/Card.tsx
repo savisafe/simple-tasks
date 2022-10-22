@@ -34,7 +34,7 @@ export const Card = ({userName, title, text, id, col, comments}: Props) => {
     }
 
     const createComment = (comments: any) => {
-       if (commentValue.length > 0) {
+        if (commentValue.length > 0) {
             const card = {
                 id,
                 comments,
@@ -248,15 +248,16 @@ export const Card = ({userName, title, text, id, col, comments}: Props) => {
                                     overflow: 'auto'
                                 }}>
                                     {
-                                        comments.map( (e:any, i:any) => {
+                                        comments.map((e: any, i: any) => {
                                             return (
-                                            <Comment
-                                                key={i}
-                                                id={id}
-                                                userName={userName}
-                                                comment={e.comment}
-                                            />
-                                        )})
+                                                <Comment
+                                                    key={i}
+                                                    id={id}
+                                                    userName={userName}
+                                                    comment={e.comment}
+                                                />
+                                            )
+                                        })
                                     }
                                 </div>
 
@@ -268,14 +269,29 @@ export const Card = ({userName, title, text, id, col, comments}: Props) => {
 
                         <div className="modal-footer">
                             {change ? (
-                                <button type="button"
+                                <>
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            dispatch(removeCardColOne(Number(id)));
+                                            setOpen(!open);
+                                        }}
+                                        className="btn btn-danger"
+                                    >
+                                        Удалить карточку
+                                    </button>
+
+                                    <button
+                                        type="button"
                                         onClick={() => {
                                             changeCard(newTitle, newText)
                                             setChange(!change)
                                         }}
                                         className="btn btn-primary"
-                                >Сохранить
-                                </button>
+                                    >
+                                        Сохранить
+                                    </button>
+                                </>
                             ) : (
                                 <>
                                     <button type="button"
@@ -284,15 +300,6 @@ export const Card = ({userName, title, text, id, col, comments}: Props) => {
                                             }}
                                             className="btn btn-link"
                                     >Изменить карточку
-                                    </button>
-
-                                    <button type="button"
-                                            onClick={() => {
-                                                dispatch(removeCardColOne(Number(id)));
-                                                setOpen(!open);
-                                            }}
-                                            className="btn btn-danger"
-                                    >Удалить карточку
                                     </button>
                                 </>
                             )}

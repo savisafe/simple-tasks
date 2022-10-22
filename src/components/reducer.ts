@@ -10,10 +10,10 @@ const userName = createSlice({
         cardsColFour: [],
     },
     reducers: {
-        setUserName: (state, action) => {
+        createUserName: (state, action) => {
             state.userName = action.payload
         },
-        setCardsColOne: (state: any, action) => {
+        createCardsColOne: (state: any, action) => {
             return {...state, cardsColOne: [...state.cardsColOne, action.payload]}
         },
         removeCardColOne: (state: any, action) => {
@@ -36,13 +36,17 @@ const userName = createSlice({
         },
         updateCommentColOne: (state: any, action) => {
         },
+        removeCommentColOne: (state: any, action) => {
+            let i = state.cardsColOne.findIndex((e: any) => e.id === action.payload.id)
+            state.cardsColOne = state.cardsColOne[i].comments.filter((e: any) => e.commentId !== action.payload)
+        },
     }
 })
 
 export const {
-    setUserName,
+    createUserName,
 
-    setCardsColOne,
+    createCardsColOne,
     removeCardColOne,
     changeCardColOne,
     createCommentColOne,

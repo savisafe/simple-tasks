@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
 
-import {setUserName} from "./reducer";
+import {createUserName} from "./reducer";
 
 export const WelcomePopup = () => {
     const dispatch = useDispatch()
@@ -10,13 +10,13 @@ export const WelcomePopup = () => {
 
     const handleKeyDown = (e:any) => {
         if (e.key === 'Enter') {
-            dispatch(setUserName(name))
+            dispatch(createUserName(name))
             setOpen(!open)
         }
     }
 
     const onChangeUserName = (name:any) => {
-        dispatch(setUserName(name))
+        dispatch(createUserName(name))
     }
 
     return (

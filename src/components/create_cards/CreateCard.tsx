@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 
 import {useDispatch, useSelector} from "react-redux";
-import {setCardsColOne} from "../reducer";
+import {createCardsColOne} from "../reducer";
 
 import {Card} from "../cards/Card";
 
@@ -24,7 +24,7 @@ export const CreateCard = ({name}: Props) => {
             id: Date.now(),
             comments: [],
         }
-        dispatch(setCardsColOne(cards))
+        dispatch(createCardsColOne(cards))
     }
 
     return (
