@@ -273,23 +273,24 @@ export const Card = ({userName, title, text, id, col, comments}: Props) => {
                                     <button
                                         type="button"
                                         onClick={() => {
-                                            dispatch(removeCardColOne(Number(id)));
-                                            setOpen(!open);
-                                        }}
-                                        className="btn btn-danger"
-                                    >
-                                        Удалить карточку
-                                    </button>
-
-                                    <button
-                                        type="button"
-                                        onClick={() => {
                                             changeCard(newTitle, newText)
                                             setChange(!change)
                                         }}
                                         className="btn btn-primary"
                                     >
                                         Сохранить
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            dispatch(removeCardColOne(Number(id)));
+                                            setOpen(!open);
+                                        }}
+                                        style={{color: "red"}}
+                                        className="btn btn-link"
+                                    >
+                                        Удалить карточку
                                     </button>
                                 </>
                             ) : (
