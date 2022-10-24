@@ -5,7 +5,7 @@ import '../../index.css';
 
 import {CommentIcon} from "../icons/CommentIcon";
 import {Comment} from "../comments/Comment";
-import {changeCardColOne, createCommentColOne, removeCardColOne} from "../reducer";
+import {changeCard, createComment, removeCard} from "../reducer";
 
 type Props = {
     userName: string;
@@ -25,29 +25,29 @@ export const Card = ({userName, title, text, id, col, comments}: Props) => {
     const [newText, setNewText] = useState(text)
     const [commentValue, setCommentValue] = useState('')
 
-    const changeCard = (title: any, text: any) => {
+    const onChangeCard = (title: any, text: any) => {
         const card = {
             title,
             text,
             id,
         }
-        dispatch(changeCardColOne(card))
+        dispatch(changeCard(card))
     }
 
-    const createComment = (comments: any) => {
+    const onCreateComment = (comments: any) => {
         if (commentValue.length > 0) {
             const card = {
                 id,
                 comments,
             }
-            dispatch(createCommentColOne(card))
+            dispatch(createComment(card))
             setCommentValue('')
         }
     }
 
     const handleKeyDown = (e: any) => {
         if (e.key === 'Enter') {
-            createComment(commentValue);
+            onCreateComment(commentValue);
             setSend(true)
 
         }
@@ -153,8 +153,7 @@ export const Card = ({userName, title, text, id, col, comments}: Props) => {
                             </h5>
                             <button type="button"
                                     onClick={() => {
-                                        setOpen(!open);
-                                        setChange(!change);
+                                        change ? setChange(!change) : setOpen(!open);
                                     }}
                                     className="btn-close"
                                     data-bs-dismiss="modal"
@@ -239,7 +238,7 @@ export const Card = ({userName, title, text, id, col, comments}: Props) => {
                                             marginLeft: 8
                                         }}
                                         onClick={() => {
-                                            createComment(commentValue);
+                                            onCreateComment(commentValue);
                                             setSend(true)
                                         }}
                                     >Отправить
@@ -281,7 +280,7 @@ export const Card = ({userName, title, text, id, col, comments}: Props) => {
                                     <button
                                         type="button"
                                         onClick={() => {
-                                            changeCard(newTitle, newText)
+                                            onChangeCard(newTitle, newText)
                                             setChange(!change)
                                         }}
                                         className="btn btn-primary"
@@ -292,7 +291,7 @@ export const Card = ({userName, title, text, id, col, comments}: Props) => {
                                     <button
                                         type="button"
                                         onClick={() => {
-                                            dispatch(removeCardColOne(Number(id)));
+                                            dispatch(removeCard(Number(id)));
                                             setOpen(!open);
                                         }}
                                         style={{color: "red"}}

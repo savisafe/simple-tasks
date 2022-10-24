@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 
 import {useDispatch, useSelector} from "react-redux";
-import {createCardsColOne} from "../reducer";
+import {createCards} from "../reducer";
 
 import {Card} from "../cards/Card";
 
@@ -15,7 +15,7 @@ export const CreateCard = ({name}: Props) => {
     const [newTitle, setNewTitle] = useState('')
     const [newText, setNewText] = useState('')
     const userName = useSelector((state: any) => state.userName.userName)
-    const cards = useSelector((state: any) => state.userName.cardsColOne)
+    const cards = useSelector((state: any) => state.userName.cards)
 
     const onChangeCard = (title: any, text: any) => {
         const cards = {
@@ -24,7 +24,7 @@ export const CreateCard = ({name}: Props) => {
             id: Date.now(),
             comments: [],
         }
-        dispatch(createCardsColOne(cards))
+        dispatch(createCards(cards))
     }
 
     return (
