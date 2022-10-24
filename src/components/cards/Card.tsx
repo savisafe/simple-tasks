@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {useDispatch} from "react-redux";
 import plural from 'plural-ru';
+import '../../index.css';
 
 import {CommentIcon} from "../icons/CommentIcon";
 import {Comment} from "../comments/Comment";
@@ -153,6 +154,7 @@ export const Card = ({userName, title, text, id, col, comments}: Props) => {
                             <button type="button"
                                     onClick={() => {
                                         setOpen(!open);
+                                        setChange(!change);
                                     }}
                                     className="btn-close"
                                     data-bs-dismiss="modal"
@@ -206,69 +208,72 @@ export const Card = ({userName, title, text, id, col, comments}: Props) => {
                                 </div>
                             </div>
 
-                            <div>
-                                {comments.length} {plural(comments.length, 'коментарий', 'коментария', 'коментариев')}
-                            </div>
-
-                            <div style={{
-                                marginTop: 15,
-                                display: "flex",
-                                alignItems: "center",
-                            }}
-                            >
-                                <input
-                                    style={{
-                                        width: '80%',
-                                        borderRadius: 8,
-                                        height: 38,
-                                        border: "1px solid rgba(0, 0, 0, 0.175)",
-                                        whiteSpace: 'nowrap'
-                                    }}
-                                    value={commentValue}
-                                    onChange={(e) => setCommentValue(e.target.value)}
-                                    placeholder="Написать комментарий"
-                                    onKeyDown={handleKeyDown}
-                                />
-                                <button
-                                    type="button"
-                                    className="btn btn-primary"
-                                    style={{
-                                        marginLeft: 8
-                                    }}
-                                    onClick={() => {
-                                        createComment(commentValue);
-                                        setSend(true)
-                                    }}
-                                >Отправить
-                                </button>
-                            </div>
-
-                            {send ? (
-                                <div style={{
-                                    maxHeight: 400,
-                                    overflow: 'auto'
-                                }}>
-                                    {
-                                        comments.map((e: any, i: any) => {
-                                            return (
-                                                <Comment
-                                                    key={i}
-                                                    id={id}
-                                                    userName={userName}
-                                                    comment={e.comment}
-                                                    comments={comments}
-                                                    commentId={e.commentId}
-                                                />
-                                            )
-                                        })
-                                    }
+                            <div className={change ? "display-none" : ""}>
+                                <div>
+                                    {comments.length} {plural(comments.length, 'коментарий', 'коментария', 'коментариев')}
                                 </div>
 
-                            ) : (
-                                <></>
-                            )}
+                                <div style={{
+                                    marginTop: 15,
+                                    display: "flex",
+                                    alignItems: "center",
+                                }}
+                                >
+                                    <input
+                                        style={{
+                                            width: '80%',
+                                            borderRadius: 8,
+                                            height: 38,
+                                            border: "1px solid rgba(0, 0, 0, 0.175)",
+                                            whiteSpace: 'nowrap'
+                                        }}
+                                        value={commentValue}
+                                        onChange={(e) => setCommentValue(e.target.value)}
+                                        placeholder="Написать комментарий"
+                                        onKeyDown={handleKeyDown}
+                                    />
+                                    <button
+                                        type="button"
+                                        className="btn btn-primary"
+                                        style={{
+                                            marginLeft: 8
+                                        }}
+                                        onClick={() => {
+                                            createComment(commentValue);
+                                            setSend(true)
+                                        }}
+                                    >Отправить
+                                    </button>
+                                </div>
 
-                        </div>
+                                {send ? (
+                                    <div style={{
+                                        maxHeight: 400,
+                                        overflow: 'auto'
+                                    }}>
+                                        {
+                                            comments.map((e: any, i: any) => {
+                                                return (
+                                                    <Comment
+                                                        key={i}
+                                                        id={id}
+                                                        userName={userName}
+                                                        comment={e.comment}
+                                                        comments={comments}
+                                                        commentId={e.commentId}
+                                                    />
+                                                )
+                                            })
+                                        }
+                                    </div>
+
+                                ) : (
+                                    <></>
+                                )}
+
+                            </div>
+                            </div>
+
 
                         <div className="modal-footer">
                             {change ? (

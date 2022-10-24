@@ -4,8 +4,7 @@ import {useDispatch} from "react-redux";
 import {UserIcon} from "../icons/UserIcon";
 import EditIcon from "../icons/EditIcon";
 import CheckMarkIcon from "../icons/CheckMarkIcon";
-import {createCommentColOne, removeCardColOne, removeCommentColOne, updateCommentColOne} from "../reducer";
-import CloseIcon from "../icons/TrashIcon";
+import {removeCommentColOne} from "../reducer";
 import TrashIcon from "../icons/TrashIcon";
 
 type Props = {
@@ -22,12 +21,13 @@ export const Comment = ({userName, comment, id, commentId, comments}: Props) => 
     const [newComment, setNewComment] = useState('')
     const [edit, setEdit] = useState(false)
 
-    console.log(commentId)
+    const removeComment = (commentId:any) => {
+        dispatch(removeCommentColOne(Number(commentId)));
+    }
 
     const handleKeyDown = (e: any) => {
         if (e.key === 'Enter') {
             setEdit(!edit)
-            console.log(comment)
         }
     }
 
@@ -83,7 +83,7 @@ export const Comment = ({userName, comment, id, commentId, comments}: Props) => 
                             <div style={{display: "flex"}}>
                                 <div
                                     onClick={() => {
-                                        dispatch(removeCommentColOne(Number(commentId)));
+                                        removeComment(commentId)
                                     }}
                                 >
                                     <TrashIcon/>
