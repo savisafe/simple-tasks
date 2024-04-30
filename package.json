@@ -30,7 +30,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy": "export NODE_OPTIONS=--openssl-legacy-provider yarn build",
+    "predeploy": "export NODE_OPTIONS=--openssl-legacy-provider npm run build",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
