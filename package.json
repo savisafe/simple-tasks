@@ -1,9 +1,7 @@
 {
+  "homepage": "http://savisafe.github.io/react",
   "name": "my-app",
   "version": "0.1.0",
-  "homepage": "https://savisafe.github.io/react",
-  "predeploy": "yarn build",
-  "deploy": "gh-pages -d build",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.5",
@@ -31,7 +29,9 @@
     "start": "export NODE_OPTIONS=--openssl-legacy-provider react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "export NODE_OPTIONS=--openssl-legacy-provider yarn build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
